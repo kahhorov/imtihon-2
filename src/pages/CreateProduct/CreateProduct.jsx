@@ -43,13 +43,13 @@ function CreateProduct() {
       setNotfic(true);
       return;
     }
-    toast.success("Product muvoffaqiyatli qo'shildi");
     setNotfic(false);
     const data = {
       ...getData,
       id: uuid(),
     };
     dispatch(addProduct(data));
+    toast.success("Product muvoffaqiyatli qo'shildi");
     e.target.reset();
   }
 
