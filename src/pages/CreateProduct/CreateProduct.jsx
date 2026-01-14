@@ -2,8 +2,9 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { Button, Input } from "rsuite";
+import { Button, Input, Textarea } from "rsuite";
 import { addProduct } from "../../features/todoSlice";
+import { v4 as uuid } from "uuid";
 
 function CreateProduct() {
   // states
@@ -44,15 +45,14 @@ function CreateProduct() {
     }
     toast.success("Product muvoffaqiyatli qo'shildi");
     setNotfic(false);
-    dispatch(addProduct(getData));
+    const data = {
+      ...getData,
+      id: uuid(),
+    };
+    dispatch(addProduct(data));
     e.target.reset();
   }
-  // const handlePhoneChange = (value) => {
-  //   const onlyNums = value.replace(/[^0-9]/g, "");
-  //   if (onlyNums.length <= 9) {
-  //     setPhone(onlyNums);
-  //   }
-  // };
+
   return (
     <div className="w-full max-w-3xl mx-auto mt-10 border-gray-300 border rounded-lg p-4">
       {notfic && (
@@ -68,8 +68,18 @@ function CreateProduct() {
       >
         <Input placeholder="Product name" name="productName" />
         <Input placeholder="Product title" name="productTitle" />
-        <Input placeholder="Product description" name="productDesc" />
-        <Input placeholder="Product price" name="productPrice" />
+        <Textarea
+          resize="vertical"
+          placeholder="Product description"
+          name="productDesc"
+          h={"40px"}
+        />
+        <Input
+          h={"35px"}
+          placeholder="Product price"
+          name="productPrice"
+          type="number"
+        />
       </form>
       <Button type="submit" form="add-product" appearance="primary" mt={"10px"}>
         Add product
